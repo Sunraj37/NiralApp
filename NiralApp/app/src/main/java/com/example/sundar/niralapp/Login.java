@@ -1,39 +1,31 @@
 package com.example.sundar.niralapp;
-
-import android.content.Intent;
-import android.support.design.widget.TextInputLayout;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
-import android.text.TextWatcher;
-import android.widget.EditText;
-import android.text.Editable;
+import android.support.design.widget.TextInputLayout;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
-
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
-
 /**
- * Created by Sundar on 8/12/2017.
+ * Created by Sundar on 8/15/2017.
  */
-public class LoginActivity extends Activity{
-    private EditText inputEmail, inputPassword;
-    private TextInputLayout inputLayoutName, inputLayoutEmail, inputLayoutPassword;
+public class Login extends Activity{
     private Button btnLogin, btnCreate;
-
+    private EditText inputEmail, inputPassword;
+    private TextInputLayout  inputLayoutEmail, inputLayoutPassword;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_activity);
+        setContentView(R.layout.login);
         inputEmail   = (EditText) findViewById(R.id.login_input_email);
         inputPassword = (EditText) findViewById(R.id.login_input_password);
         inputLayoutEmail = (TextInputLayout) findViewById(R.id.login_input_layout_email);
         inputLayoutPassword = (TextInputLayout) findViewById(R.id.login_input_layout_password);
         btnLogin = (Button) findViewById(R.id.btn_login);
         btnCreate = (Button) findViewById(R.id.btn_register);
-        inputEmail.addTextChangedListener(new MyTextWatcher(inputEmail));
-        inputPassword.addTextChangedListener(new MyTextWatcher(inputPassword));
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,14 +39,14 @@ public class LoginActivity extends Activity{
                     return;
                 }
                 Toast.makeText(getApplicationContext(), "Login Successfull", Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                Intent i = new Intent(Login.this, MainActivity.class);
                 startActivity(i);
             }
         });
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(LoginActivity.this, RegisterActivity.class);
+                Intent i = new Intent(Login.this, Register.class);
                 startActivity(i);
             }
         });
@@ -87,26 +79,6 @@ public class LoginActivity extends Activity{
     private void requestFocus(View view) {
         if (view.requestFocus()) {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-        }
-    }
-    public class MyTextWatcher implements TextWatcher {
-        private View view;
-        private MyTextWatcher(View view) {
-            this.view = view;
-        }
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        }
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        }
-        public void afterTextChanged(Editable editable) {
-            switch (view.getId()) {
-                case R.id.login_input_email:
-                    validateEmail();
-                    break;
-                case R.id.login_input_password:
-                    validatePassword();
-                    break;
-            }
         }
     }
 }
